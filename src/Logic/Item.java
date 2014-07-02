@@ -1,9 +1,7 @@
 package Logic;
 
 
-
 import java.io.Serializable;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
 /**
@@ -13,7 +11,7 @@ import javax.swing.Icon;
  * @author Bogdan Kirylyuk
  *
  */
-public abstract class Item implements Serializable
+public abstract class Item implements Serializable,Comparable
 {
 	/**
 	 * String variable used as item name.
@@ -59,15 +57,21 @@ public abstract class Item implements Serializable
      */
     public Item(String name,boolean available,String itemFileName) //disabled PRICE
     {
-        String smallColorIcon = "images/"+itemFileName+"-Col-Small.jpg";
-        String smallBWIcon= "images/"+itemFileName+"-BW-Small.jpg";
-        String bigIcon= "images/"+itemFileName+"-Col-Big.jpg";
+        String smallColorIcon = "images/"+itemFileName+"_Small_Col.jpg";
+        String smallBWIcon= "images/"+itemFileName+"_Small_BW.jpg";
+        String bigIcon= "images/"+itemFileName+"_Big.jpg";
         //setPrice(price);  //disabled PRICE
         setName(name);
         setSmallColorIcon(new ImageIcon(getClass().getResource(smallColorIcon)));
         setSmallBWIcon(new ImageIcon(getClass().getResource(smallBWIcon)));
         setBigIcon(new ImageIcon(getClass().getResource(bigIcon)));
         setAvalible(available);
+    }
+
+    @Override
+    public int compareTo(Object t)
+    {
+        return this.getItemType().getIndex()-((Item) t).getItemType().getIndex();
     }
     /**
      * Method used to get small icon of the item whether its unlocked or not.
